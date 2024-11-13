@@ -1,0 +1,23 @@
+# Deep Learning
+tensorflow==2.18.0
+keras==3.6.0
+
+# Data Manipulation
+numpy==2.0.0
+pandas==2.2.2
+tqdm==4.67.0
+glob2==0.7
+
+# Data Visualization
+matplotlib==3.9.1
+seaborn==0.13.2
+
+# Machine Learning
+scikit-learn==1.5.2
+
+
+
+
+
+
+
