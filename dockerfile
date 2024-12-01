@@ -4,12 +4,12 @@ FROM python:3.8-slim
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copier le script Python et les fichiers nécessaires dans le conteneur
+# Copying the python script and all the dependencies 
 COPY weather-classification-TP.py /app/
 COPY ResNet152V2-Weather-Classification-03.h5 /app/
 COPY requirements.txt /app/
 
-# Installer les dépendances système requises
+# Instaling system prerequises 
 RUN apt-get update && apt-get install -y \
     build-essential \
     pkg-config \
@@ -17,12 +17,12 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Mettre à jour pip et installer les dépendances Python
+# installing all the python dependencies
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Créer les dossiers nécessaires
+# create the output folder 
 RUN mkdir -p /app/output
 
-# Définir le point d'entrée pour exécuter le script avec des arguments
+# this is the entry point for the python script 
 ENTRYPOINT ["python", "weather-classification-TP.py"]
