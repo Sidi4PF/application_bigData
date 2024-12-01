@@ -1,0 +1,49 @@
+language: python
+python:
+  - "3.8"  # Specify the Python version
+
+services:
+  - docker  # Enable Docker in Travis CI
+
+# Define environment variables if needed
+env:
+  global:
+    - DOCKER_IMAGE_NAME=weather-predictor
+
+# Install dependencies
+install:
+  - pip install --upgrade pip
+  - pip install flake8  # Code linting
+
+# Run tests and checks
+script:
+  # Lint the Python script
+  - flake8 weather-classification-TP.py
+
+  # Build the Docker image
+  - docker build -t $DOCKER_IMAGE_NAME .
+
+  # Run the container to verify it works
+  - docker run --rm -v $(pwd)/input:/app/pictures -v $(pwd)/output:/app/output $DOCKER_IMAGE_NAME --input_dir /app/input --output_dir /app/output 
+
+# Deploy step (optional)
+# Uncomment this if you want to push to a Docker registry (e.g., Docker Hub)
+# before_deploy:
+#   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+# deploy:
+#   provider: script
+#   script: docker push $DOCKER_IMAGE_NAME
+#   on:
+#     branch: main
+
+# Cache dependencies
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+notifications:
+  email:
+    recipients:
+      - jules-edouardl@efrei.net
+    on_success: always
+    on_failure: always
