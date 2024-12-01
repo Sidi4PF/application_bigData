@@ -1,7 +1,7 @@
-# Utiliser une image Python légère comme base
+# Python Image
 FROM python:3.8-slim
 
-# Définir le répertoire de travail dans le conteneur
+# Set the working directory in the container
 WORKDIR /app
 
 # Copying the python script and all the dependencies 
